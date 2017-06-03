@@ -1,4 +1,4 @@
-package com.entersekt.dir;
+package com.entersekt.dir.walker;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -26,7 +26,8 @@ public class WalkBasic
         } else {
             builder.append("Other: ");
         }
-        builder.append(String.format("%s (%d bytes) (%s modified)%n", file.toString(), attr.size(), attr.lastModifiedTime()));
+        Files.getOwner(path);
+        builder.append(String.format("%s (%d bytes) (%s owner) (%s modified)%n", file.toString(), attr.size(), Files.getOwner(file), attr.lastModifiedTime()));
         writer.write(builder.toString().getBytes());
         return CONTINUE;
     }

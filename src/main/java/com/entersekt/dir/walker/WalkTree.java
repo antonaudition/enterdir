@@ -1,4 +1,4 @@
-package com.entersekt.dir;
+package com.entersekt.dir.walker;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.List;
 import static java.nio.file.FileVisitResult.CONTINUE;
 import static java.nio.file.FileVisitResult.SKIP_SUBTREE;
 
-public class WalkSorted {
+public class WalkTree extends WhiteWalker {
 
     class WalkDirectories extends SimpleFileVisitor<Path> {
 
@@ -47,17 +47,7 @@ public class WalkSorted {
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attr) throws IOException {
-            StringBuilder builder = new StringBuilder();
-            builder.append("   ");
-            if (attr.isSymbolicLink()) {
-                builder.append("Symbolic link: ");
-            } else if (attr.isRegularFile()) {
-                builder.append("Regular file: ");
-            } else {
-                builder.append("Other: ");
-            }
-            builder.append(String.format("%s (%d bytes) (%s modified)%n", file.toString(), attr.size(), attr.lastModifiedTime()));
-            writer.write(builder.toString().getBytes());
+            writer.write(printFile(file, attr).getBytes());
             return CONTINUE;
         }
 
