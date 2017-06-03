@@ -34,8 +34,8 @@ class PathInfo {
         }
         try {
             response.raw().setContentType("text/plain");
-            BasicPathWalker pf = new BasicPathWalker(path, new BufferedOutputStream(response.raw().getOutputStream()));
-            pf.walk();
+            WalkSorted pf = new WalkSorted();
+            pf.walk(path, new BufferedOutputStream(response.raw().getOutputStream()));
         } catch (IOException e) {
             throw halt(501, e.getMessage());
         }

@@ -10,20 +10,14 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
-public class BasicPathWalker
+public class WalkBasic
         extends SimpleFileVisitor<Path> {
 
     private BufferedOutputStream writer;
     private Path path;
 
-    public BasicPathWalker(Path path, BufferedOutputStream outputStream) throws IOException {
-        writer = outputStream;
-        this.path = path;
-    }
-
     @Override
-    public FileVisitResult visitFile(Path file,
-                                     BasicFileAttributes attr) throws IOException {
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attr) throws IOException {
         StringBuilder builder = new StringBuilder();
         if (attr.isSymbolicLink()) {
             builder.append("Symbolic link: ");
@@ -38,20 +32,14 @@ public class BasicPathWalker
     }
 
     @Override
-    public FileVisitResult postVisitDirectory(Path dir,
-                                              IOException exc) throws IOException {
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
         writer.write(String.format("Directory: %s%n", dir).getBytes());
         return CONTINUE;
     }
 
-    @Override
-    public FileVisitResult visitFileFailed(Path file,
-                                           IOException exc) {
-        System.err.println(exc);
-        return CONTINUE;
-    }
-
-    public void walk() throws IOException {
+    public void walk(Path path, BufferedOutputStream outputStream) throws IOException {
+        writer = outputStream;
+        this.path = path;
         Files.walkFileTree(path, this);
         writer.flush();
         writer.close();

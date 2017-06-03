@@ -8,5 +8,5 @@ docker-build: build
 	docker build -t enterdir .
 
 docker-run: docker-build
-	docker run -p 8080:4567 enterdir
+	docker run -p 8080:8080 enterdir
 
