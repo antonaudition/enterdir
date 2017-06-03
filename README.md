@@ -7,61 +7,42 @@ information in the result and cater for a directory size of at least 1 000 000.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+After cloning the project the easiest way to get started is by running the make commands in the 
+root of the project
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+The following tools are required to build and run this project
 
 ```
-Give examples
+jdk 8
+maven
+docker
+make
 ```
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+The installation steps are contained in a `Makefile` and give the following options 
+(if `make` is unavailable the commands in the Makefile should be run)
 
 ```
-until finished
+make build (builds the java source using maven)
+make run (runs the jar and exposes the local file system on localhost:8080)
+make docker-build (creates a docker image called enterdir)
+make docker-run (runs the docker and exposes the docker file system on localhost:8080)
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+## Usage
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+The app exposes the following four endpoints on `localhost:8080`
 
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
+/alive
+/stat
+/ls
+/tree
 
 ```
-Give an example
-```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
+..etc
