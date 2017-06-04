@@ -33,7 +33,7 @@ make docker-build (creates a docker image called enterdir)
 make docker-run (runs the docker and exposes the docker file system on localhost:8080)
 ```
 
-## Usage
+### Usage
 
 The app exposes the following four endpoints on `localhost:8080`
 
@@ -42,7 +42,20 @@ The app exposes the following four endpoints on `localhost:8080`
 /stat
 /ls
 /tree
-
 ```
 
-..etc
+- _/alive_ - returns a simple string to to indicate that the service is running
+- _/stat/${path}_ - returns a string indicating whether a path is valid or not
+- _ls/${path}_ - returns a list of the files and directories directly under the given path
+- _tree/${path}_ - returns a recursive list of files and directories under the given path
+
+#### Specifying a path
+A path is specified in the unix fashion `/root/foo/bar`. For example, to get the entries under 
+the user's home directory the following url should be used `http://localhost:8080/ls/home/user`
+
+## Technical Details
+The endpoints respond to `http get` command and return a document with the following mime description
+```
+Content-Type: text/plain
+Content-Encoding: gzip
+```

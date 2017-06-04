@@ -65,7 +65,7 @@ class Router {
         printWriter.flush();
         String trace = writer.toString();
 
-        System.out.println(trace);
+        System.err.println(trace);
         return trace;
     }
 }
